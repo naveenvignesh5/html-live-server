@@ -1,42 +1,68 @@
 {
-	"name": "html-live-server",
-	"displayName": "html-live-server",
-	"description": "Live server to render html web page based on code changes with refresh",
-	"version": "0.0.1",
-	"author": "Naveen Vignesh.B",
-	"engines": {
-		"vscode": "^1.41.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"onCommand:server.start"
-	],
-	"main": "./out/extension.js",
-	"contributes": {
-		"commands": [{
-			"command": "server.start",
-			"title": "Start Web Preview Server",
-			"category": "HTML Live Server"
-		}]
-	},
-	"scripts": {
-		"vscode:prepublish": "yarn run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
-		"pretest": "yarn run compile",
-		"test": "node ./out/test/runTest.js"
-	},
-	"devDependencies": {
-		"@types/glob": "^7.1.1",
-		"@types/mocha": "^5.2.7",
-		"@types/node": "^12.11.7",
-		"@types/vscode": "^1.41.0",
-		"glob": "^7.1.5",
-		"mocha": "^6.2.2",
-		"typescript": "^3.6.4",
-		"tslint": "^5.20.0",
-		"vscode-test": "^1.2.2"
-	}
+  "name": "html-live-server",
+  "displayName": "html-live-server",
+  "description": "Live server to render html web page based on code changes with refresh",
+  "version": "0.0.1",
+  "author": "Naveen Vignesh.B",
+  "engines": {
+    "vscode": "^1.41.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:server.start",
+    "onCommand:server.stop"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "server.start",
+        "title": "Start Web Preview Server",
+        "category": "HTML Live Server"
+      },
+      {
+        "command": "server.stop",
+        "title": "Stop Web Preview Server",
+        "category": "HTML Live Server"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "server.start",
+        "key": "alt+s",
+        "mac": "alt+s",
+        "when": "editorTextFocus"
+	  },
+	  {
+        "command": "server.stop",
+        "key": "alt+d",
+        "mac": "alt+d",
+        "when": "editorTextFocus"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "yarn run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "yarn run compile",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.1",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.11.7",
+    "@types/vscode": "^1.41.0",
+    "glob": "^7.1.5",
+    "mocha": "^6.2.2",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.4",
+    "vscode-test": "^1.2.2"
+  },
+  "dependencies": {
+    "ip": "^1.1.5",
+    "live-server": "^1.2.1"
+  }
 }
