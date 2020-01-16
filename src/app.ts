@@ -1,61 +1,63 @@
-import { ExtensionContext, window } from 'vscode';
+import { ExtensionContext, window } from "vscode";
 
-import * as path from 'path';
+import * as path from "path";
 
 // libs
-import Server from './lib/server';
+import Server from "./lib/server";
 
 // constants
-import { PORT, IP } from './constants';
+import { PORT, IP } from "./constants";
 
 class App {
-    server: any;
-    context: any;
-    isLive: Boolean = false;
+  server: any;
+  serverConfig: any;
+  context: any;
+  isLive: Boolean = false;
 
-    constructor(context: ExtensionContext) {
-        this.context = context;
+  constructor(context: ExtensionContext) {
+    this.context = context;
+  }
 
-        this.initialiseServer(this.getFileSrc());
+  initialiseServer(_filePath?: string) {
+    // server config
+    let filePath = _filePath ? _filePath : window.activeTextEditor?.document.fileName;
+
+    if (!filePath) {
+        window.showInformationMessage('No document selected');
+        return;
     }
 
-    getFileSrc(): string {
-        let src: string = '';
+    this.serverConfig = {
+      host: IP,
+      port: PORT,
+      root: path.dirname(filePath),
+      file: path.basename(filePath) // thing to updated
+    };
 
-        if (window.activeTextEditor) {
-            src = window.activeTextEditor.document.uri.fsPath;
-        }
+    this.server = new Server(this.serverConfig);
+  }
 
-        return src;
+  toggleLive() {
+    this.isLive = !this.isLive;
+  }
+
+  goLive(filePath?: string) {
+    if (filePath) {
+      this.initialiseServer(filePath);
     }
 
-    initialiseServer(filePath: string) {
-        // server config
-        const _serverConfig = {
-            host: IP,
-            port: PORT,
-            root: path.dirname(filePath),
-            file: path.basename(filePath), // thing to updated
-        };
+    this.toggleLive();
 
-        this.server = new Server(_serverConfig);
-    }   
-
-    toggleLive() {
-        this.isLive = !this.isLive;
+    if (this.isLive) {
+      this.server.startServer();
+      window.showInformationMessage("Started Preview Server");
     }
+  }
 
-    goLive() {
-        this.toggleLive();
-
-        if(this.isLive) {
-            this.server.startServer();
-        }
-    }
-
-    stopLive() {
-        this.server.stopServer();
-    }
+  stopLive() {
+    this.server.stopServer();
+    window.showInformationMessage("Stopped Preview Server");
+  }
 }
 
 export default App;

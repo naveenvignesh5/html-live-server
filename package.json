@@ -16,6 +16,32 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "menus": {
+      "editor/context": [
+        {
+          "command": "server.stop",
+          "group": "navigation@-LiveServer",
+          "when": "resourceLangId == html"
+        },
+        {
+          "command": "server.start",
+          "group": "navigation@-LiveServer",
+          "when": "resourceLangId == html"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "server.stop",
+          "group": "navigation@-LiveServer",
+          "when": "resourceLangId == html"
+        },
+        {
+          "command": "server.start",
+          "group": "navigation@-LiveServer",
+          "when": "resourceLangId == html"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "server.start",
@@ -34,8 +60,8 @@
         "key": "alt+s",
         "mac": "alt+s",
         "when": "editorTextFocus"
-	  },
-	  {
+      },
+      {
         "command": "server.stop",
         "key": "alt+d",
         "mac": "alt+d",

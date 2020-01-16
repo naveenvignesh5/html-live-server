@@ -1,14 +1,14 @@
-import * as vscode from "vscode";
-import App from './app';
+import { ExtensionContext, Uri, commands } from "vscode";
+import App from "./app";
 
-export function activate(context: vscode.ExtensionContext) {
+export function activate(context: ExtensionContext) {
   const app = new App(context);
 
   context.subscriptions.push(
-    vscode.commands.registerCommand("server.start", () => {
-      app.goLive();
+    commands.registerCommand("server.start", (fileUri: Uri) => {
+      app.goLive(fileUri ? fileUri.fsPath: '');
     }),
-    vscode.commands.registerCommand("server.stop", () => {
+    commands.registerCommand("server.stop", () => {
       app.stopLive();
     })
   );
