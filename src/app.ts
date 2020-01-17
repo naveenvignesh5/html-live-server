@@ -1,57 +1,30 @@
-import { ExtensionContext, window } from "vscode";
-
-import * as path from "path";
+import { window } from "vscode";
 
 // libs
 import Server from "./lib/server";
 
-// constants
-import { PORT, IP } from "./constants";
-
 class App {
-  server: any;
-  serverConfig: any;
-  context: any;
-  isLive: Boolean = false;
+  server: Server;
+  file: string = '';
 
-  constructor(context: ExtensionContext) {
-    this.context = context;
+  constructor(filePath?: string) {
+    this.file = this.getFile(filePath);
+    this.server = new Server(this.file);
   }
 
-  initialiseServer(_filePath?: string) {
-    // server config
-    let filePath = _filePath ? _filePath : window.activeTextEditor?.document.fileName;
+  getFile(filePath?: string) {
+    let _filePath:string = filePath || '';
 
-    if (!filePath) {
-        window.showInformationMessage('No document selected');
-        return;
+    if (!_filePath) { // no uri passed
+      _filePath = window.activeTextEditor?.document.fileName || '';
     }
 
-    this.serverConfig = {
-      host: IP,
-      port: PORT,
-      root: path.dirname(filePath),
-      file: path.basename(filePath) // thing to updated
-    };
-
-    this.server = new Server(this.serverConfig);
+    return _filePath;
   }
 
-  toggleLive() {
-    this.isLive = !this.isLive;
-  }
-
-  goLive(filePath?: string) {
-    if (filePath) {
-      this.initialiseServer(filePath);
-    }
-
-    this.toggleLive();
-
-    if (this.isLive) {
-      this.server.startServer();
-      window.showInformationMessage("Started Preview Server");
-    }
+  goLive(file?: string) {
+    this.server.startServer(file);
+    window.showInformationMessage("Started Preview Server");
   }
 
   stopLive() {

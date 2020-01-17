@@ -59,13 +59,13 @@
         "command": "server.start",
         "key": "alt+s",
         "mac": "alt+s",
-        "when": "editorTextFocus"
+        "when": "editorTextFocus && editorLangId == html"
       },
       {
         "command": "server.stop",
         "key": "alt+d",
         "mac": "alt+d",
-        "when": "editorTextFocus"
+        "when": "editorTextFocus && editorLangId == html"
       }
     ]
   },
