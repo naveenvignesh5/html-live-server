@@ -20,8 +20,7 @@
       "editor/context": [
         {
           "command": "server.stop",
-          "group": "navigation@-LiveServer",
-          "when": "resourceLangId == html"
+          "group": "navigation@-LiveServer"
         },
         {
           "command": "server.start",
@@ -32,8 +31,7 @@
       "explorer/context": [
         {
           "command": "server.stop",
-          "group": "navigation@-LiveServer",
-          "when": "resourceLangId == html"
+          "group": "navigation@-LiveServer"
         },
         {
           "command": "server.start",
@@ -46,7 +44,8 @@
       {
         "command": "server.start",
         "title": "Start Web Preview Server",
-        "category": "HTML Live Server"
+        "category": "HTML Live Server",
+        "when": "resourceLangId == html"
       },
       {
         "command": "server.stop",
@@ -64,8 +63,7 @@
       {
         "command": "server.stop",
         "key": "alt+d",
-        "mac": "alt+d",
-        "when": "editorTextFocus && editorLangId == html"
+        "mac": "alt+d"
       }
     ]
   },

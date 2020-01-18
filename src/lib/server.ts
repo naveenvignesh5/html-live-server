@@ -1,5 +1,4 @@
 import { IP, PORT } from "./../constants";
-import { window, Uri } from "vscode";
 import { dirname, basename } from "path";
 const liveServer = require("live-server");
 
