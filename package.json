@@ -8,8 +8,23 @@
   "engines": {
     "vscode": "^1.41.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/naveenvignesh5/html-live-server.git"
+  },
+  "license": "ISC",
   "categories": [
     "Other"
+  ],
+  "keywords": [
+    "html",
+    "server",
+    "live server",
+    "html server",
+    "html live server",
+    "live",
+    "preview",
+    "live reload"
   ],
   "activationEvents": [
     "onCommand:server.start",
