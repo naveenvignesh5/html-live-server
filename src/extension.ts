@@ -1,4 +1,5 @@
 import { ExtensionContext, Uri, commands } from "vscode";
+
 import App from "./app";
 
 import { COMMANDS } from "./constants";

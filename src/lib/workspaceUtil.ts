@@ -1,15 +1,22 @@
-import { workspace, ExtensionContext, Uri } from "vscode";
+import { workspace, Uri } from "vscode";
 
-class Workspace {
-  context: ExtensionContext;
-  
-  constructor(context: ExtensionContext) {
-    this.context = context;
+class WorkspaceUtil {
+  static verifyWorkspace(path: Uri) {
+    return workspace.getWorkspaceFolder(path);
   }
 
-  verifyWorkspace(path: Uri) {
-    return workspace.getWorkspaceFolder(path);
+  public static async workspaceHasHTMLFiles(): Promise<Boolean> {
+    let _hasHTMLFiles: Boolean = false;
+
+    try {
+      const files = await workspace.findFiles('**/*.html');
+      _hasHTMLFiles = files && files.length > 0;
+    } catch (err) {
+      console.log(err);
+    }
+
+    return _hasHTMLFiles;
   }
 }
 
-export default Workspace;
+export default WorkspaceUtil;

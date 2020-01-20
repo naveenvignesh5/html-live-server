@@ -1,6 +1,7 @@
 import { window, ExtensionContext } from "vscode";
 
 // libs
+import WorkspaceUtil from './lib/workspaceUtil';
 import Server from "./lib/server";
 import Util from "./lib/Util";
 
@@ -8,15 +9,15 @@ import Util from "./lib/Util";
 import StatusBar from "./statusbar";
 
 class App {
-  ctx: ExtensionContext;
   server: Server;
   file: string = "";
 
   constructor(context: ExtensionContext) {
-    this.ctx = context;
-    this.server = new Server(this.ctx, this.file);
-
-    StatusBar.init(this.ctx);
+    this.server = new Server(context, this.file);
+    
+    WorkspaceUtil.workspaceHasHTMLFiles().then(() => {
+      StatusBar.init(context);
+    });
   }
 
   private resolveFile(filePath?: string) {
