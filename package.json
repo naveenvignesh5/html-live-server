@@ -4,6 +4,7 @@
   "description": "Live server to render html web page based on code changes with refresh",
   "version": "0.0.1",
   "author": "Naveen Vignesh.B",
+  "publisher": "naveenvignesh5nv",
   "engines": {
     "vscode": "^1.41.0"
   },
