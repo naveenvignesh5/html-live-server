@@ -1,14 +1,16 @@
 import { ExtensionContext, Uri, commands } from "vscode";
 import App from "./app";
 
+import { COMMANDS } from "./constants";
+
 export function activate(context: ExtensionContext) {
-  const app = new App();
+  const app = new App(context);
 
   context.subscriptions.push(
-    commands.registerCommand("server.start", (uri?: Uri) => {
+    commands.registerCommand(COMMANDS.start, (uri?: Uri) => {
       app.goLive(uri?.fsPath);
     }),
-    commands.registerCommand("server.stop", () => {
+    commands.registerCommand(COMMANDS.stop, () => {
       app.stopLive();
     })
   );

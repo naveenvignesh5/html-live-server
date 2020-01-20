@@ -1,13 +1,17 @@
-import { IP, PORT } from "./../constants";
+import { ExtensionContext } from 'vscode';
 import { dirname, basename } from "path";
+
+import { IP, PORT, STORAGE_KEY } from "./../constants";
+
 const liveServer = require("live-server");
 
 class Server {
-  config: object = {};
-  isLive: Boolean = false;
+  private config: object = {};
+  private ctx: ExtensionContext;
 
-  constructor(_filePath: string) {
+  constructor(context: ExtensionContext, _filePath: string) {
     this.initialiseServer(_filePath);
+    this.ctx = context;
   }
 
   initialiseServer(_filePath: string) {
@@ -30,23 +34,27 @@ class Server {
     };
   }
 
-  startServer(filePath?: string) {
+  startServer(cb: Function, filePath?: string) {
+    const isLive: Boolean = this.ctx.workspaceState.get(STORAGE_KEY) || false;
+
     if (filePath) {
       this.updateFile(filePath);
-      this.stopServer();
+      this.stopServer(cb);
     }
 
-    if (this.isLive) {
-      this.stopServer();
+    if (isLive) {
+      this.stopServer(cb);
     }
 
     liveServer.start(this.config);
-    this.isLive = true;
+
+    this.ctx.workspaceState.update(STORAGE_KEY, true);
   }
 
-  stopServer() {
-    this.isLive = false;
-    liveServer.shutdown();
+  stopServer(cb: Function) {
+    this.ctx.workspaceState.update(STORAGE_KEY, false);
+
+    liveServer.shutdown(cb);
   }
 }
 
