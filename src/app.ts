@@ -1,7 +1,7 @@
 import { window, ExtensionContext } from "vscode";
 
 // libs
-import WorkspaceUtil from './lib/workspaceUtil';
+import WorkspaceUtil from "./lib/workspaceUtil";
 import Server from "./lib/server";
 import Util from "./lib/Util";
 
@@ -14,8 +14,8 @@ class App {
 
   constructor(context: ExtensionContext) {
     this.server = new Server(context, this.file);
-    
-    WorkspaceUtil.workspaceHasHTMLFiles().then(() => {
+
+    WorkspaceUtil.workspaceHasHTMLFiles().then(hasHTML => {
       StatusBar.init(context);
     });
   }
@@ -37,6 +37,11 @@ class App {
   }
 
   goLive(file?: string) {
+    // check workspace
+    if (!WorkspaceUtil.isWorkspaceValid()) {
+      return;
+    }
+
     let _file: string = file || "";
 
     _file = this.resolveFile(file);
