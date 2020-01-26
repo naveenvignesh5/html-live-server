@@ -4,6 +4,11 @@
 
 All notable changes to the "html-live-server" extension will be documented in this file.
 
+## [0.1.0] - 2020-01-26
+### Added
+- Check workspace for valid files to serve.
+
+
 ## [0.0.1] - 2020-01-20
 ### Added
 - Initial release
