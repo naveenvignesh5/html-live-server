@@ -38,7 +38,9 @@ class StatusBar {
 
   public static init(ctx: ExtensionContext) {
     StatusBar.ctx = ctx;
-    StatusBar.showStop();
+    setTimeout(function() {
+      StatusBar.showStart();
+    }, 1000);
   }
 
   public static toggleStatusBar() {
