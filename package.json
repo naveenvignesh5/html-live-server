@@ -2,7 +2,7 @@
   "name": "html-live-server",
   "displayName": "html-live-server",
   "description": "Live server to render html web page based on code changes with refresh",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "Naveen Vignesh.B",
   "publisher": "naveenvignesh5nv",
   "engines": {
